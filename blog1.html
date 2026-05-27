@@ -89,14 +89,14 @@
         <span><i class="far fa-calendar"></i> 22 May 2026</span>
     </div>
 
-    <p>The <span class="highlight">SSC CGL 2026</span> examination is one of the most competitive exams in India. With lakhs of aspirants, a well‑structured strategy can make all the difference. Here’s a month‑wise plan to ace both Tier‑I and Tier‑II.</p>
+    <p>The <span class="highlight">SSC CGL 2026</span> examination is one of the most competitive exams in India. With lakhs of aspirants, a well‑structured strategy can make all the difference. Here's a month‑wise plan to ace both Tier‑I and Tier‑II.</p>
 
     <h2>Month 1 – Foundation (May – June)</h2>
     <ul>
         <li><strong>Quantitative Aptitude:</strong> Revise basics – percentages, profit & loss, averages, and simplification.</li>
         <li><strong>English Language:</strong> Practice 10 comprehension passages daily. Start grammar rules (articles, prepositions).</li>
         <li><strong>Reasoning:</strong> Focus on analogies, odd‑one‑out, and series.</li>
-        <li><strong>General Awareness:</strong> Read daily current affairs from TestMasterPro’s notes.</li>
+        <li><strong>General Awareness:</strong> Read daily current affairs from TestMasterPro's notes.</li>
     </ul>
 
     <h2>Month 2 – Intensive Practice (July)</h2>
@@ -117,28 +117,16 @@
 
     <p>Remember, <strong>TestMasterPro</strong> provides exact exam‑like mock tests, bilingual interface, and instant results. Use the <a href="dashboard.html">dashboard</a> to track your progress. All the best!</p>
 
-    <!-- Footer (same as dashboard) -->
+    <!-- Footer (dynamically populated from real JSON) -->
     <footer class="pro-footer">
         <div class="footer-grid">
             <div class="footer-col">
                 <h3>Exams</h3>
-                <ul>
-                    <li><a href="exam2.html?category=Bank&exam=SBI%20PO">Bank</a></li>
-                    <li><a href="exam2.html?category=SSC&exam=SSC%20CGL">SSC</a></li>
-                    <li><a href="exam2.html?category=Railway&exam=RRB%20NTPC">Railway</a></li>
-                    <li><a href="exam2.html?category=CUET&exam=CUET%20GAT">CUET</a></li>
-                    <li><a href="referral.html">Refer & Earn</a></li>
-                    <li><a href="usecoin.html">Coin Exchange</a></li>
-                </ul>
+                <ul id="footerExamCategories"><li><a>Loading…</a></li></ul>
             </div>
             <div class="footer-col">
                 <h3>Upcoming Exam</h3>
-                <ul>
-                    <li><a href="#" onclick="return false;">ReNEET UG 2026</a></li>
-                    <li><a href="#" onclick="return false;">CUET UG 2026</a></li>
-                    <li><a href="#" onclick="return false;">SSC CGL Tier‑I 2026</a></li>
-                    <li><a href="#" onclick="return false;">RRB NTPC 2026</a></li>
-                </ul>
+                <ul id="footerUpcomingExams"><li><a>Loading…</a></li></ul>
             </div>
         </div>
         <div class="footer-email"><a href="mailto:testmasterpro.space">testmasterpro.space</a></div>
@@ -155,5 +143,99 @@
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+    <script>
+        // ---- Footer: fetch real JSON (same as dashboard) ----
+        const JSON_PATHS = {
+            mocks: './mocks.json',
+            upcomingfooter: './json/upcomingfooter.json'
+        };
+
+        // Fallback data if JSON files fail
+        const FALLBACK_MOCKS = [
+            { exam:'SBI PO', category:'Bank' },
+            { exam:'IBPS Clerk', category:'Bank' },
+            { exam:'SSC CGL', category:'SSC' },
+            { exam:'SSC CHSL', category:'SSC' },
+            { exam:'RRB NTPC', category:'Railway' },
+            { exam:'CUET GAT', category:'CUET' }
+        ];
+
+        const FALLBACK_UPCOMING_FOOTER = [
+            { id:1, name:'ReNEET UG 2026', date:'15 May 2026' },
+            { id:2, name:'CUET UG 2026', date:'20 May 2026' },
+            { id:3, name:'UP Police Constable 2026', date:'10 June 2026' },
+            { id:4, name:'SSC Selection Post (Phase 14) 2026', date:'22 June 2026' },
+            { id:5, name:'SSC GD 2025-26', date:'5 July 2026' },
+            { id:6, name:'RRB NTPC 2026', date:'25 July 2026' },
+            { id:7, name:'SSC CGL Tier-I 2026', date:'12 June 2026' },
+            { id:8, name:'SSC JE 2026', date:'18 August 2026' },
+            { id:9, name:'UPSC (CSE) 2026', date:'28 May 2026' },
+            { id:10, name:'SBI PO Prelims 2026', date:'18 August 2026' }
+        ];
+
+        async function fetchJSON(path, fallback) {
+            try {
+                const res = await fetch(path, { cache: 'no-store' });
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const data = await res.json();
+                if (!Array.isArray(data) || !data.length) throw new Error('Empty data');
+                return data;
+            } catch (e) {
+                console.warn(`Could not load ${path}, using fallback.`, e.message);
+                return fallback;
+            }
+        }
+
+        function groupByCategoryUniqueExams(arr) {
+            const map = {};
+            arr.forEach(item => {
+                const cat = item.category || 'Other';
+                if (!map[cat]) map[cat] = { exams: [], seen: new Set() };
+                if (!map[cat].seen.has(item.exam)) {
+                    map[cat].seen.add(item.exam);
+                    map[cat].exams.push(item);
+                }
+            });
+            return Object.keys(map).sort().map(cat => ({
+                category: cat,
+                exams: map[cat].exams
+            }));
+        }
+
+        async function renderFooterExamCategories() {
+            const container = document.getElementById('footerExamCategories');
+            const data = await fetchJSON(JSON_PATHS.mocks, FALLBACK_MOCKS);
+            const grouped = groupByCategoryUniqueExams(data);
+            if (!grouped.length) {
+                container.innerHTML = '<li><a>No exams</a></li>';
+                return;
+            }
+            let html = '';
+            grouped.forEach(cat => {
+                html += `<li><a href="exam2.html?category=${encodeURIComponent(cat.category)}&exam=${encodeURIComponent(cat.exams[0]?.exam || '')}">${cat.category}</a></li>`;
+            });
+            html += `<li><a href="referral.html">Refer & Earn</a></li>`;
+            html += `<li><a href="usecoin.html">Coin Exchange</a></li>`;
+            container.innerHTML = html;
+        }
+
+        async function renderFooterUpcoming() {
+            const container = document.getElementById('footerUpcomingExams');
+            const data = await fetchJSON(JSON_PATHS.upcomingfooter, FALLBACK_UPCOMING_FOOTER);
+            if (!data.length) {
+                container.innerHTML = '<li><a>No upcoming exams</a></li>';
+                return;
+            }
+            container.innerHTML = data.map(e =>
+                `<li><a href="#" onclick="alert('${e.name} – Expected Date: ${e.date}');return false;">${e.name}</a></li>`
+            ).join('');
+        }
+
+        // Init footer
+        document.addEventListener('DOMContentLoaded', () => {
+            renderFooterExamCategories();
+            renderFooterUpcoming();
+        });
+    </script>
 </body>
 </html>
