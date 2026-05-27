@@ -9,885 +9,219 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --primary: #1e3a5f;
-            --primary-dark: #152a45;
-            --primary-light: #eef2f7;
-            --gray-900: #0f172a;
-            --gray-800: #1e293b;
-            --gray-700: #334155;
-            --gray-600: #475569;
-            --gray-500: #64748b;
-            --gray-400: #94a3b8;
-            --gray-300: #cbd5e1;
-            --gray-200: #e2e8f0;
-            --gray-100: #f1f5f9;
-            --gray-50: #f8fafc;
+            --primary: #243748;
+            --primary-dark: #1a2a36;
+            --primary-light: #e8edf2;
+            --gray-800: #262626;
+            --gray-700: #404040;
+            --gray-600: #525252;
+            --gray-500: #737373;
+            --gray-400: #a0a0a0;
+            --gray-200: #e8e8e8;
+            --gray-100: #f5f5f5;
             --font: 'Poppins', sans-serif;
-            --accent: #f59e0b;
-            --accent-hover: #d97706;
-            --text-muted: rgba(255,255,255,0.5);
-            --text-light: rgba(255,255,255,0.9);
+            --accent: #fbbf24;
+            --accent-hover: #f59e0b;
+            --text-muted: rgba(255,255,255,0.45);
+            --text-light: rgba(255,255,255,0.85);
             --border-light: rgba(255,255,255,0.06);
-            --secondary: #162a3d;
-            --blue: #2563eb;
-            --green: #059669;
-            --red: #dc2626;
-            --radius: 12px;
-            --radius-md: 16px;
-            --radius-lg: 20px;
-            --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
-            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
-            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
-            --transition: 0.2s cubic-bezier(0.4,0,0.2,1);
+            --secondary: #1f3140;
+            --blue: #0066ff;
+            --radius: 14px;
+            --radius-md: 18px;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-md: 0 6px 20px rgba(0,0,0,0.08);
+            --shadow-lg: 0 12px 32px rgba(0,0,0,0.12);
+            --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
         }
-
         * { margin:0; padding:0; box-sizing:border-box; }
-
-        html { scroll-behavior: smooth; }
-
         body {
-            font-family: var(--font);
-            background: var(--gray-50);
-            color: var(--gray-800);
-            line-height: 1.75;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            font-family:var(--font); background:#f7f7f7; color:var(--gray-800);
+            line-height:1.8; overflow-x:hidden;
+        }
+        .container {
+            max-width:800px; margin:0 auto; padding:0 20px;
         }
 
-        /* ---- Hero Section ---- */
-        .blog-hero {
-            position: relative;
-            width: 100%;
-            height: 480px;
-            overflow: hidden;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 50%, #0f172a 100%);
+        /* Hero Image */
+        .hero-img {
+            width:100%; max-height:400px; object-fit:cover; display:block;
+            border-radius:0 0 var(--radius-lg) var(--radius-lg);
+            box-shadow:var(--shadow-md);
         }
 
-        .blog-hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.4;
-            z-index: 1;
+        /* Article Area */
+        .article {
+            background:#fff; border-radius:var(--radius-lg); padding:40px;
+            margin-top:-40px; position:relative; z-index:2; box-shadow:var(--shadow-lg);
+            margin-bottom:40px;
         }
-
-        .blog-hero img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.5;
-            mix-blend-mode: luminosity;
-        }
-
-        .hero-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 50px 24px 40px;
-            background: linear-gradient(to top, rgba(15,23,42,0.95) 0%, rgba(15,23,42,0.4) 50%, transparent 100%);
-            max-width: 820px;
-            margin: 0 auto;
-            z-index: 2;
-        }
-
-        .hero-category {
-            display: inline-block;
-            background: var(--accent);
-            color: var(--primary-dark);
-            padding: 5px 16px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            margin-bottom: 14px;
-            box-shadow: 0 2px 8px rgba(245,158,11,0.3);
-        }
-
-        .hero-overlay h1 {
-            font-size: clamp(24px, 5vw, 40px);
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 12px;
-            line-height: 1.25;
-            letter-spacing: -0.02em;
-        }
-
-        .hero-meta {
-            display: flex;
-            gap: 24px;
-            flex-wrap: wrap;
-            font-size: 13px;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        .hero-meta span {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .hero-meta i {
-            font-size: 12px;
-            color: var(--accent);
-        }
-
-        /* ---- Article Container ---- */
-        .article-container {
-            max-width: 780px;
-            margin: -70px auto 0;
-            padding: 0 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* ---- Back Button ---- */
         .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #fff;
-            color: var(--gray-600);
-            padding: 10px 20px;
-            border-radius: 24px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 13px;
-            margin-bottom: 20px;
-            transition: var(--transition);
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--gray-200);
+            display:inline-flex; align-items:center; gap:8px; background:var(--primary);
+            color:#fff; padding:10px 20px; border-radius:20px; text-decoration:none;
+            font-weight:600; font-size:14px; margin-bottom:24px; transition:0.2s;
         }
+        .back-btn:hover { background:var(--primary-dark); transform:translateY(-2px); }
+        h1 { font-size:clamp(22px,4vw,32px); font-weight:800; margin-bottom:8px; line-height:1.3; color:var(--primary-dark); }
+        .meta { font-size:13px; color:var(--gray-500); margin-bottom:24px; display:flex; gap:20px; flex-wrap:wrap; }
+        .meta span { display:flex; align-items:center; gap:6px; }
 
-        .back-btn:hover {
-            background: var(--primary);
-            color: #fff;
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--primary);
+        /* Author Card */
+        .author-card {
+            display:flex; align-items:center; gap:16px; padding:16px;
+            background:var(--primary-light); border-radius:var(--radius);
+            margin-bottom:28px; flex-wrap:wrap;
         }
-
-        .back-btn i {
-            font-size: 12px;
-        }
-
-        /* ---- Article Card ---- */
-        .article-card {
-            background: #fff;
-            border-radius: var(--radius-lg);
-            padding: 48px;
-            box-shadow: var(--shadow-xl);
-            margin-bottom: 40px;
-            border: 1px solid var(--gray-200);
-        }
-
-        /* ---- Author Highlight ---- */
-        .author-highlight {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            padding: 20px 24px;
-            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-            border-radius: var(--radius-md);
-            margin-bottom: 32px;
-            border: 1px solid var(--gray-200);
-            flex-wrap: wrap;
-        }
-
         .author-avatar {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            font-weight: 700;
-            color: #fff;
-            flex-shrink: 0;
-            box-shadow: 0 2px 8px rgba(30,58,95,0.2);
+            width:52px; height:52px; border-radius:50%; background:var(--primary);
+            color:#fff; display:flex; align-items:center; justify-content:center;
+            font-size:22px; font-weight:700; flex-shrink:0;
+        }
+        .author-info h4 { font-size:15px; font-weight:700; color:var(--primary-dark); }
+        .author-info p { font-size:12px; color:var(--gray-500); margin:0; }
+
+        /* Content Images */
+        .content-img {
+            width:100%; border-radius:var(--radius); margin:20px 0; box-shadow:var(--shadow-sm);
         }
 
-        .author-info h4 {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--gray-800);
-            margin-bottom: 2px;
-        }
+        /* Typography */
+        h2 { font-size:22px; font-weight:700; color:var(--primary-dark); margin:32px 0 12px; padding-bottom:6px; border-bottom:2px solid var(--gray-200); }
+        p { margin-bottom:18px; color:var(--gray-600); font-size:15px; }
+        ul, ol { margin:0 0 20px 24px; color:var(--gray-600); }
+        li { margin-bottom:10px; font-size:15px; }
+        .highlight { background:#e8edf2; padding:2px 6px; border-radius:4px; font-weight:600; }
 
-        .author-info p {
-            font-size: 12px;
-            color: var(--gray-500);
-            margin: 1px 0;
-            line-height: 1.5;
-        }
-
-        .author-tag {
-            display: inline-block;
-            background: var(--primary);
-            color: #fff;
-            padding: 2px 10px;
-            border-radius: 12px;
-            font-size: 10px;
-            font-weight: 600;
-            margin-left: 8px;
-            vertical-align: middle;
-        }
-
-        /* ---- Table of Contents ---- */
-        .toc {
-            background: #fff;
-            border-radius: var(--radius-md);
-            padding: 28px;
-            margin-bottom: 36px;
-            border: 1px solid var(--gray-200);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .toc h3 {
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: var(--gray-800);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .toc h3::before {
-            content: '';
-            display: inline-block;
-            width: 4px;
-            height: 18px;
-            background: var(--accent);
-            border-radius: 2px;
-        }
-
-        .toc ol {
-            list-style: none;
-            counter-reset: toc-counter;
-            display: grid;
-            gap: 10px;
-        }
-
-        .toc li {
-            counter-increment: toc-counter;
-            font-size: 14px;
-            font-weight: 500;
-            padding: 8px 14px;
-            background: var(--gray-50);
-            border-radius: 8px;
-            transition: var(--transition);
-            border: 1px solid transparent;
-        }
-
-        .toc li:hover {
-            background: var(--primary-light);
-            border-color: var(--gray-200);
-            transform: translateX(4px);
-        }
-
-        .toc li::before {
-            content: counter(toc-counter);
-            font-weight: 700;
-            color: var(--accent);
-            margin-right: 10px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 24px;
-            height: 24px;
-            background: #fff;
-            border-radius: 6px;
-            font-size: 12px;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .toc a {
-            color: var(--gray-600);
-            text-decoration: none;
-            transition: 0.2s;
-        }
-
-        .toc a:hover {
-            color: var(--primary);
-        }
-
-        /* ---- Content Typography ---- */
-        h2 {
-            font-size: 26px;
-            font-weight: 800;
-            color: var(--gray-900);
-            margin: 40px 0 20px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--gray-200);
-            letter-spacing: -0.01em;
-            line-height: 1.3;
-        }
-
-        h3 {
-            font-size: 18px;
-            font-weight: 700;
-            margin: 28px 0 12px;
-            color: var(--gray-700);
-            line-height: 1.4;
-        }
-
-        p {
-            margin-bottom: 20px;
-            color: var(--gray-600);
-            font-size: 15.5px;
-            line-height: 1.85;
-        }
-
-        ul, ol {
-            margin: 0 0 24px 0;
-            padding-left: 0;
-            list-style: none;
-            color: var(--gray-600);
-        }
-
-        li {
-            margin-bottom: 12px;
-            font-size: 15px;
-            line-height: 1.7;
-            position: relative;
-            padding-left: 28px;
-        }
-
-        ul li::before {
-            content: '';
-            position: absolute;
-            left: 8px;
-            top: 10px;
-            width: 6px;
-            height: 6px;
-            background: var(--accent);
-            border-radius: 50%;
-        }
-
-        ol {
-            counter-reset: list-counter;
-        }
-
-        ol li {
-            counter-increment: list-counter;
-            padding-left: 32px;
-        }
-
-        ol li::before {
-            content: counter(list-counter);
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 22px;
-            height: 22px;
-            background: var(--primary-light);
-            color: var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            font-weight: 700;
-        }
-
-        .highlight {
-            background: linear-gradient(180deg, transparent 65%, rgba(245,158,11,0.25) 65%);
-            padding: 2px 4px;
-            font-weight: 600;
-            color: var(--gray-900);
-        }
-
-        /* ---- Images ---- */
-        .article-card img {
-            width: 100%;
-            max-height: 360px;
-            object-fit: cover;
-            border-radius: var(--radius-md);
-            margin-bottom: 24px;
-            margin-top: 8px;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--gray-200);
-            transition: var(--transition);
-        }
-
-        .article-card img:hover {
-            transform: scale(1.01);
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* ---- Tip Box ---- */
-        .tip-box {
-            background: linear-gradient(135deg, #fffbeb, #fef3c7);
-            border: 1px solid #fcd34d;
-            border-radius: var(--radius-md);
-            padding: 24px;
-            margin: 28px 0;
-            position: relative;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .tip-box::before {
-            content: 'Pro Tip';
-            position: absolute;
-            top: -11px;
-            left: 20px;
-            background: var(--accent);
-            color: #fff;
-            padding: 3px 14px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.3px;
-            box-shadow: 0 2px 6px rgba(245,158,11,0.3);
-        }
-
-        .tip-box p {
-            margin: 6px 0 0;
-            color: #92400e;
-            font-size: 14.5px;
-            font-weight: 500;
-        }
-
-        /* ---- Key Point ---- */
-        .key-point {
-            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
-            border-left: 4px solid var(--blue);
-            padding: 18px 24px;
-            border-radius: 0 var(--radius) var(--radius) 0;
-            margin: 24px 0;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .key-point p {
-            margin: 0;
-            font-weight: 600;
-            color: var(--gray-800);
-            font-size: 14.5px;
-        }
-
-        /* ---- Share Buttons ---- */
+        /* Share Section */
         .share-section {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            padding: 28px 0 0;
-            border-top: 1px solid var(--gray-200);
-            margin-top: 36px;
+            display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+            padding:20px 0 0; border-top:1px solid var(--gray-200); margin-top:30px;
         }
-
-        .share-section span {
-            font-weight: 600;
-            font-size: 13px;
-            color: var(--gray-500);
-            margin-right: 4px;
-        }
-
+        .share-section span { font-weight:600; font-size:13px; color:var(--gray-500); }
         .share-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-            font-size: 15px;
-            color: #fff;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            box-shadow: var(--shadow-sm);
+            width:38px; height:38px; border-radius:50%; border:none; cursor:pointer;
+            font-size:15px; color:#fff; transition:0.3s; display:flex; align-items:center;
+            justify-content:center; text-decoration:none;
         }
+        .share-btn:hover { transform:translateY(-3px); }
+        .share-btn.wp { background:#25d366; }
+        .share-btn.tg { background:#26a7de; }
+        .share-btn.fb { background:#1877f2; }
+        .share-btn.tw { background:#1da1f2; }
+        .share-btn.copy { background:var(--gray-500); }
 
-        .share-btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: var(--shadow-md);
-        }
-
-        .share-btn.wp { background: #25d366; }
-        .share-btn.tg { background: #26a7de; }
-        .share-btn.fb { background: #1877f2; }
-        .share-btn.tw { background: #1da1f2; }
-        .share-btn.copy { background: var(--gray-400); }
-
-        /* ---- Footer ---- */
+        /* Footer */
         .pro-footer {
-            background: var(--secondary);
-            color: var(--text-light);
-            padding: 48px 20px 100px;
-            position: relative;
-            margin-top: 48px;
+            background:var(--secondary); color:var(--text-light); padding:40px 20px 100px;
+            position:relative; margin-top:40px;
         }
-
         .pro-footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent), #fbbf24, var(--accent));
+            content:''; position:absolute; top:0; left:0; right:0; height:3px;
+            background:linear-gradient(90deg,var(--accent),#f59e0b,#fbbf24);
         }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            max-width: 600px;
-            margin: 0 auto 32px;
-        }
-
+        .footer-grid { display:grid; grid-template-columns:1fr 1fr; gap:32px; max-width:600px; margin:0 auto 30px; }
         .footer-col h3 {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 18px;
-            color: #ffffff;
-            position: relative;
-            padding-bottom: 10px;
+            font-size:17px; font-weight:700; margin-bottom:18px; color:#ffffff;
+            position:relative; padding-bottom:8px;
         }
-
         .footer-col h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 28px;
-            height: 2px;
-            background: var(--accent);
-            border-radius: 2px;
+            content:''; position:absolute; bottom:0; left:0; width:30px; height:2px;
+            background:var(--accent); border-radius:2px;
         }
-
-        .footer-col ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .footer-col li {
-            margin-bottom: 10px;
-            padding-left: 0;
-        }
-
-        .footer-col li::before {
-            display: none;
-        }
-
+        .footer-col ul { list-style:none; margin:0; padding:0; }
+        .footer-col li { margin-bottom:11px; }
         .footer-col a {
-            color: var(--accent);
-            font-size: 13px;
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.25s ease;
-            cursor: pointer;
+            color:var(--accent); font-size:13px; font-weight:500; text-decoration:none;
+            transition:all 0.25s ease; cursor:pointer;
         }
-
-        .footer-col a:hover {
-            color: #ffffff;
-            padding-left: 4px;
-        }
-
-        .footer-email {
-            text-align: center;
-            margin-bottom: 24px;
-        }
-
-        .footer-email a {
-            color: #38bdf8;
-            font-size: 14px;
-            font-weight: 600;
-            text-decoration: none;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            border-top: 1px solid var(--border-light);
-            padding-top: 24px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .footer-bottom p {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 4px;
-        }
-
-        .footer-bottom a {
-            font-size: 12px;
-            color: var(--text-light);
-            font-weight: 500;
-            text-decoration: none;
-        }
-
-        .footer-social {
-            display: flex;
-            justify-content: center;
-            gap: 14px;
-            margin: 24px 0;
-        }
-
+        .footer-col a:hover { color:#ffffff; transform:translateX(3px); }
+        .footer-email { text-align:center; margin-bottom:24px; }
+        .footer-email a { color:#38bdf8; font-size:14px; font-weight:600; text-decoration:none; }
+        .footer-bottom { text-align:center; border-top:1px solid var(--border-light); padding-top:20px; max-width:600px; margin:0 auto; }
+        .footer-bottom p { font-size:12px; color:var(--text-muted); margin-bottom:4px; }
+        .footer-bottom a { font-size:12px; color:var(--text-light); font-weight:500; text-decoration:none; }
+        .footer-social { display:flex; justify-content:center; gap:16px; margin:20px 0; }
         .footer-social a {
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            background: rgba(255,255,255,0.04);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            font-size: 16px;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.08);
+            width:40px; height:40px; border-radius:12px; background:rgba(255,255,255,0.05);
+            display:flex; align-items:center; justify-content:center; color:var(--text-muted);
+            font-size:16px; transition:all 0.3s ease; border:1px solid var(--border-light);
         }
-
         .footer-social a:hover {
-            background: rgba(255,255,255,0.08);
-            color: var(--accent);
-            transform: translateY(-3px);
-            border-color: rgba(245,158,11,0.3);
+            background:rgba(255,255,255,0.1); color:var(--accent); transform:translateY(-3px);
+            border-color:var(--accent);
         }
 
-        /* ---- Responsive ---- */
-        @media (max-width: 640px) {
-            .blog-hero {
-                height: 320px;
-            }
-
-            .hero-overlay {
-                padding: 30px 16px 28px;
-            }
-
-            .hero-overlay h1 {
-                font-size: 22px;
-            }
-
-            .article-container {
-                margin-top: -50px;
-                padding: 0 14px;
-            }
-
-            .article-card {
-                padding: 28px 22px;
-                border-radius: var(--radius-md);
-            }
-
-            .toc {
-                padding: 20px;
-            }
-
-            .toc ol {
-                gap: 8px;
-            }
-
-            h2 {
-                font-size: 22px;
-                margin-top: 32px;
-            }
-
-            h3 {
-                font-size: 16px;
-            }
-
-            p, li {
-                font-size: 14.5px;
-            }
-
-            .article-card img {
-                max-height: 240px;
-                border-radius: var(--radius);
-            }
-
-            .author-highlight {
-                padding: 16px;
-            }
-
-            .author-avatar {
-                width: 48px;
-                height: 48px;
-                font-size: 18px;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 28px;
-            }
-
-            .share-section {
-                gap: 10px;
-            }
-
-            .share-btn {
-                width: 38px;
-                height: 38px;
-                font-size: 14px;
-            }
-        }
-
-        @media (max-width: 380px) {
-            .blog-hero {
-                height: 280px;
-            }
-
-            .article-card {
-                padding: 22px 18px;
-            }
-
-            .hero-meta {
-                gap: 14px;
-                font-size: 12px;
-            }
+        @media (max-width:600px) {
+            .article { padding:24px; margin-top:-30px; }
+            .hero-img { max-height:250px; }
+            .footer-grid { grid-template-columns:1fr; }
         }
     </style>
 </head>
 <body>
-    <!-- Hero Image Section -->
-    <div class="blog-hero">
-        <img src="blogimage/Id1.jpg" alt="SSC CGL 2026 Strategy" loading="eager">
-        <div class="hero-overlay">
-            <span class="hero-category">Strategy</span>
+    <!-- Hero Image -->
+    <img src="blogimage/Id1.jpg" alt="SSC CGL 2026 Strategy" class="hero-img" loading="eager">
+
+    <div class="container">
+        <div class="article">
+            <!-- Back Button -->
+            <a href="blogs.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to All Blogs</a>
+
+            <!-- Title & Meta -->
             <h1>SSC CGL 2026 – Ultimate Strategy & Study Plan</h1>
-            <div class="hero-meta">
+            <div class="meta">
                 <span><i class="far fa-user"></i> TestMaster Admin</span>
                 <span><i class="far fa-calendar"></i> 22 May 2026</span>
                 <span><i class="far fa-clock"></i> 8 min read</span>
             </div>
-        </div>
-    </div>
 
-    <div class="article-container">
-        <!-- Back Button -->
-        <a href="blogs.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to All Blogs</a>
-
-        <div class="article-card">
             <!-- Author Highlight -->
-            <div class="author-highlight">
+            <div class="author-card">
                 <div class="author-avatar">T</div>
                 <div class="author-info">
-                    <h4>TestMaster Admin <span class="author-tag">Expert Mentor</span></h4>
-                    <p>Senior Content Writer & SSC Expert</p>
-                    <p style="font-size:11px;">📚 50+ Articles · 🏆 10 Years Experience</p>
+                    <h4>TestMaster Admin</h4>
+                    <p>Senior Content Writer & SSC Expert · 10+ years experience</p>
                 </div>
             </div>
 
-            <!-- Table of Contents -->
-            <div class="toc">
-                <h3>Table of Contents</h3>
-                <ol>
-                    <li><a href="#intro">Introduction</a></li>
-                    <li><a href="#month1">Month 1 – Foundation (May–June)</a></li>
-                    <li><a href="#month2">Month 2 – Intensive Practice (July)</a></li>
-                    <li><a href="#month3">Month 3 – Final Touch (August–Exam)</a></li>
-                    <li><a href="#tips">Pro Tips & Resources</a></li>
-                </ol>
-            </div>
-
             <!-- Introduction -->
-            <h2 id="intro">Introduction</h2>
-            <p>The <span class="highlight">SSC CGL 2026</span> examination is one of the most competitive exams in India, with over <strong>30 lakh applicants</strong> every year. A well‑structured strategy can make all the difference between selection and rejection. Here's a month‑wise plan to ace both <strong>Tier‑I</strong> and <strong>Tier‑II</strong> with confidence.</p>
-
-            <div class="key-point">
-                <p>🔑 <strong>Key Fact:</strong> SSC CGL Tier‑I 2026 is expected in June‑July. Start now to get 3 months of solid preparation.</p>
-            </div>
+            <p>The <span class="highlight">SSC CGL 2026</span> examination is one of the most competitive exams in India, with over 30 lakh applicants every year. A well‑structured strategy can make all the difference between selection and rejection. Here's a month‑wise plan to ace both Tier‑I and Tier‑II with confidence.</p>
 
             <!-- Month 1 -->
-            <h2 id="month1">Month 1 – Foundation (May – June)</h2>
-            <img src="blogimage/Id1_1.jpg" alt="Study foundation month" loading="lazy">
-            <p>This is the <strong>most critical phase</strong>. Without a strong foundation, advanced practice won't help. Focus on understanding concepts, not just memorizing formulas.</p>
-
-            <h3>Quantitative Aptitude</h3>
+            <h2>Month 1 – Foundation (May – June)</h2>
+            <img src="blogimage/Id1_1.jpg" alt="Foundation study setup" class="content-img" loading="lazy">
             <ul>
-                <li><strong>Week 1‑2:</strong> Percentages, Profit & Loss, Averages, Ratio & Proportion</li>
-                <li><strong>Week 3:</strong> Simplification, Number System, HCF/LCM</li>
-                <li><strong>Week 4:</strong> Speed, Time & Distance, Time & Work</li>
+                <li><strong>Quantitative Aptitude:</strong> Revise basics – percentages, profit & loss, averages, and simplification.</li>
+                <li><strong>English Language:</strong> Practice 10 comprehension passages daily. Start grammar rules (articles, prepositions).</li>
+                <li><strong>Reasoning:</strong> Focus on analogies, odd‑one‑out, and series.</li>
+                <li><strong>General Awareness:</strong> Read daily current affairs from TestMasterPro's notes.</li>
             </ul>
-
-            <h3>English Language</h3>
-            <ul>
-                <li>Practice <strong>10 comprehension passages</strong> daily from previous year papers.</li>
-                <li>Master grammar rules: Articles, Prepositions, Subject‑Verb Agreement.</li>
-                <li>Learn 20 new vocabulary words every day with synonyms & antonyms.</li>
-            </ul>
-
-            <h3>Reasoning</h3>
-            <ul>
-                <li>Focus on: Analogies, Odd‑One‑Out, Series, Coding‑Decoding.</li>
-                <li>Practice <strong>puzzle solving</strong> for 30 minutes daily.</li>
-            </ul>
-
-            <h3>General Awareness</h3>
-            <ul>
-                <li>Read daily current affairs from <strong>TestMasterPro's notes</strong>.</li>
-                <li>Revise static GK: History (Modern India), Geography, Polity, Science.</li>
-            </ul>
-
-            <div class="tip-box">
-                <p>Don't try to cover everything in Month 1. <strong>Depth over breadth</strong> – master 70% of the syllabus deeply rather than skimming 100%.</p>
-            </div>
 
             <!-- Month 2 -->
-            <h2 id="month2">Month 2 – Intensive Practice (July)</h2>
-            <img src="blogimage/Id1_2.jpg" alt="Mock test practice" loading="lazy">
-            <p>Now that your basics are clear, it's time to <span class="highlight">apply your knowledge</span> under exam‑like conditions. This is where most aspirants see the biggest score jump.</p>
-
+            <h2>Month 2 – Intensive Practice (July)</h2>
+            <img src="blogimage/Id1_2.jpg" alt="Online mock test practice" class="content-img" loading="lazy">
             <ul>
-                <li>Attempt <strong>free mock tests</strong> on <a href="dashboard.html">TestMasterPro.space</a> every alternate day.</li>
-                <li><strong>Analyze</strong> your weak areas using the detailed result dashboard – don't just check scores, study the solutions.</li>
-                <li>Start full‑length <strong>SSC CGL Tier‑I mocks</strong> under timed conditions (60 minutes exactly).</li>
-                <li>Revise static GK: history, geography, polity, and science using quick notes.</li>
-                <li>Practice <strong>Data Interpretation</strong> (Bar graphs, Pie charts, Tables) – 5 sets daily.</li>
+                <li>Attempt <strong>free mock tests</strong> on TestMasterPro.space every alternate day.</li>
+                <li>Analyse your weak areas using the detailed result dashboard.</li>
+                <li>Start full‑length SSC CGL Tier‑I mocks under timed conditions.</li>
+                <li>Revise static GK: history, geography, polity, and science.</li>
             </ul>
-
-            <div class="key-point">
-                <p>📊 <strong>Target:</strong> By end of Month 2, you should consistently score 130+ in Tier‑I mocks.</p>
-            </div>
 
             <!-- Month 3 -->
-            <h2 id="month3">Month 3 – Final Touch (August – Till Exam)</h2>
-            <img src="blogimage/Id1_3.jpg" alt="Final exam preparation" loading="lazy">
-            <p>The last phase is about <strong>speed, accuracy, and mental stamina</strong>. Your knowledge is solid – now make it lightning fast.</p>
-
+            <h2>Month 3 – Final Touch (August – Till Exam)</h2>
+            <img src="blogimage/Id1_3.jpg" alt="Final exam revision" class="content-img" loading="lazy">
             <ul>
-                <li>Take <strong>2 mocks per day</strong> (morning & evening) and review every mistake.</li>
-                <li>Focus on high‑weightage chapters: <strong>Trigonometry, Algebra, and Data Interpretation</strong>.</li>
-                <li>Use the <span class="highlight">Daily Challenge</span> feature on TestMasterPro to improve speed.</li>
-                <li>Practice <strong>previous year questions</strong> (at least last 5 years).</li>
-                <li>Create a <strong>formula sheet</strong> for quick revision – go through it every morning.</li>
-                <li>Stay consistent and <strong>avoid learning new topics</strong> in the last week.</li>
+                <li>Take 2 mocks per day and review mistakes.</li>
+                <li>Focus on high‑weightage chapters: trigonometry, algebra, and data interpretation.</li>
+                <li>Use the <span class="highlight">Daily Challenge</span> feature to improve speed.</li>
+                <li>Stay consistent and avoid learning new topics in the last week.</li>
             </ul>
 
-            <div class="tip-box">
-                <p>In the final 7 days: focus ONLY on revision + 1 mock/day. Don't exhaust yourself. Sleep 7‑8 hours. Your brain consolidates memory during sleep!</p>
-            </div>
+            <p>Remember, <strong>TestMasterPro</strong> provides exact exam‑like mock tests, bilingual interface, and instant results. Use the <a href="dashboard.html" style="color:var(--blue);">dashboard</a> to track your progress. All the best! 🚀</p>
 
-            <!-- Pro Tips -->
-            <h2 id="tips">Pro Tips & Resources</h2>
-            <ul>
-                <li>📱 Download <strong>TestMasterPro mobile app</strong> for practice on‑the‑go.</li>
-                <li>📝 Maintain an <strong>error notebook</strong> – write down every mistake you make in mocks.</li>
-                <li>⏰ Study in <strong>45‑minute focused blocks</strong> with 10‑minute breaks (Pomodoro technique).</li>
-                <li>👥 Join <strong>Telegram groups</strong> for daily quizzes and peer motivation.</li>
-                <li>🏋️ Exercise 30 minutes daily – improves focus and reduces exam anxiety.</li>
-            </ul>
-
-            <p style="text-align:center; font-weight:700; font-size:18px; margin-top:36px; color:var(--gray-800); line-height:1.6;">
-                Remember, <strong>TestMasterPro</strong> provides exact exam‑like mock tests, bilingual interface, and instant results.<br>
-                Use the <a href="dashboard.html" style="color:var(--blue); text-decoration:none; border-bottom:2px solid var(--blue);">dashboard</a> to track your progress. <span style="color:var(--accent-hover);">All the best! 🚀</span>
-            </p>
-
-            <!-- Share Section -->
+            <!-- Share Buttons -->
             <div class="share-section">
-                <span>Share this article:</span>
+                <span>Share:</span>
                 <a href="https://wa.me/?text=https://testmasterpro.space/blog1.html" target="_blank" class="share-btn wp"><i class="fab fa-whatsapp"></i></a>
                 <a href="https://t.me/share/url?url=https://testmasterpro.space/blog1.html" target="_blank" class="share-btn tg"><i class="fab fa-telegram-plane"></i></a>
                 <a href="https://www.facebook.com/sharer/sharer.php?u=https://testmasterpro.space/blog1.html" target="_blank" class="share-btn fb"><i class="fab fa-facebook-f"></i></a>
@@ -929,7 +263,7 @@
             });
         }
 
-        // ---- Footer: fetch real JSON ----
+        // Footer: fetch real JSON (same as dashboard)
         const JSON_PATHS = {
             mocks: './mocks.json',
             upcomingfooter: './json/upcomingfooter.json'
